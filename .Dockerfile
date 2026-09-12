@@ -16,7 +16,7 @@ RUN corepack enable
 COPY package.json pnpm-lock.yaml ./
 
 # Instala exatamente as versões do lockfile
-RUN pnpm install --frozen-lockfile
+RUN pnpm install --frozen-lockfile --allow-build=esbuild
 
 # Copiar o código do projeto inteiro (incluindo a pasta de migrações)
 COPY . .
