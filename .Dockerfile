@@ -13,10 +13,10 @@ WORKDIR /src
 RUN corepack enable
 
 # Copia os arquivos de dependências
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 # Instala exatamente as versões do lockfile
-RUN pnpm install --frozen-lockfile --allow-build=esbuild
+RUN pnpm install --frozen-lockfile
 
 # Copiar o código do projeto inteiro (incluindo a pasta de migrações)
 COPY . .
