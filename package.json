@@ -10,6 +10,10 @@
   "scripts": {
     "build": "tsc",
     "check": "ultracite check",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio",
     "dev": "node --env-file=.env --experimental-strip-types --no-warnings --watch src/server.ts",
     "fix": "ultracite fix",
     "start": "node --experimental-strip-types --no-warnings src/server.ts"
@@ -19,13 +23,17 @@
     "@fastify/swagger": "^9.8.1",
     "@fastify/swagger-ui": "^6.1.1",
     "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
     "fastify": "^5.12.4",
     "fastify-type-provider-zod": "^7.0.0",
+    "ioredis": "^6.0.0",
+    "postgres": "^3.4.9",
     "zod": "^4.6.2"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.12",
     "@types/node": "^22.20.2",
+    "drizzle-kit": "^0.31.10",
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
     "ultracite": "7.11.1"

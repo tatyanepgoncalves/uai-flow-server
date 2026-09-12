@@ -15,9 +15,6 @@
     "target": "es2024",
     "types": ["node"],
 
-    "rootDir": "./src",
-    "outDir": "./dist",
-
     "noEmit": true,
     "allowImportingTsExtensions": true,
 
