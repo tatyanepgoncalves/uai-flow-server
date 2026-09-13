@@ -16,21 +16,25 @@ CREATE TABLE "chunks" (
 	"expression" text NOT NULL,
 	"meaning" text NOT NULL,
 	"example_sentence" text NOT NULL,
+	"slug" text NOT NULL,
 	"explanation_context" text,
 	"created_by_ai_for_user_id" uuid,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone,
-	"deleted_at" timestamp with time zone
+	"deleted_at" timestamp with time zone,
+	CONSTRAINT "chunks_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "languages" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"code" text NOT NULL,
 	"name" text NOT NULL,
+	"slug" text NOT NULL,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	"updated_at" timestamp with time zone,
 	"deleted_at" timestamp with time zone,
-	CONSTRAINT "languages_code_unique" UNIQUE("code")
+	CONSTRAINT "languages_code_unique" UNIQUE("code"),
+	CONSTRAINT "languages_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "user_contexts" (
@@ -67,12 +71,15 @@ CREATE TABLE "users" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"email" text NOT NULL,
+	"password" text NOT NULL,
 	"avatar_url" text,
 	"daily_goal_chunks" integer DEFAULT 3,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
+	"slug" text NOT NULL,
 	"updated_at" timestamp with time zone,
 	"deleted_at" timestamp with time zone,
-	CONSTRAINT "users_email_unique" UNIQUE("email")
+	CONSTRAINT "users_email_unique" UNIQUE("email"),
+	CONSTRAINT "users_slug_unique" UNIQUE("slug")
 );
 --> statement-breakpoint
 CREATE TABLE "user_sentences" (

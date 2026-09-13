@@ -12,7 +12,7 @@ export const chunks = pgTable('chunks', {
   expression: text('expression').notNull(), // The expression or phrase in the target language  ex: 'look forward to'
   meaning: text('meaning').notNull(), // The meaning or translation
   exampleSentence: text('example_sentence').notNull(), // An example sentence using the chunk
-
+  slug: text('slug').unique().notNull(),
   explanationContext: text('explanation_context'), // Dica extra da IA de quando usar
   createdByAiForUserId: uuid('created_by_ai_for_user_id').references(
     () => users.id,

@@ -12,7 +12,7 @@
       "includes": [
         "./src/db/**/*.ts",
         "./src/db/schema/**/*.ts",
-        "./src/schemas/**/*.ts"
+        "./src/http/schemas/**/*.ts"
       ],
       "assist": {
         "actions": {

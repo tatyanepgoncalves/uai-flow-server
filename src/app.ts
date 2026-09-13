@@ -8,6 +8,7 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
+import { userRoutes } from './http/routes/users/index.ts'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -49,3 +50,5 @@ app.get(
   () =>
     'Bem vindo ao UAIFlow Server! Acesse a página /docs para ver a documentação.'
 )
+
+app.register(userRoutes)

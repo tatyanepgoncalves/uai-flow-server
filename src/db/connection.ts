@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres from 'postgres'
-import { env } from '../config/env.js'
-import { schema } from './schema/index.js'
+import { env } from '../config/env.ts'
+import { schema } from './schema/index.ts'
 
 export const pg = postgres(env.DATABASE_URL, {
   connection: {
