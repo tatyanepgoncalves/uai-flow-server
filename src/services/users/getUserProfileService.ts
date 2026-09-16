@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm'
-import { db } from '../../db/connection.js'
-import { schema } from '../../db/schema/index.js'
-import { formatRelativeTime } from '../../lib/utils.js'
+import { db } from '../../db/connection.ts'
+import { schema } from '../../db/schema/index.ts'
+import { formatRelativeTime } from '../../lib/utils.ts'
 import { UserNotFoundError } from './errors.ts'
 
 export class GetUserProfileService {
