@@ -2,12 +2,14 @@ import { z } from 'zod'
 
 export const createUserSchema = {
   tags: ['Usuários'],
-  summary: 'Cadastra um novo usuário',
-  description: 'Cadastra um novo usuário no UAIFlow.',
+  summary: 'Cadastra um novo usuário com personalização',
   body: z.object({
     name: z.string().min(2),
     email: z.string().email(),
     password: z.string().min(8),
+    cefr: z.enum(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']),
+    profession: z.string().optional(),
+    scenarios: z.array(z.string()).optional(),
   }),
   response: {
     201: z.object({

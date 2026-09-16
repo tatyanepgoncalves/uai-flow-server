@@ -33,6 +33,14 @@ export class CreateUserService {
         })
         .returning()
 
+      // Criar contexto do usuário
+      await tx.insert(schema.userContexts).values({
+        currentLevel: data.cefr,
+        learningGoals: data.scenarios?.join(', '),
+        professionOrField: data.profession,
+        userId: user.id,
+      })
+
       const token = jwt.sign(
         {
           id: user.id,
@@ -52,7 +60,7 @@ export class CreateUserService {
       return {
         message: `Usuário criado com sucesso. Bem vindo ao sistema, ${user.name}!`,
         token,
-         user: {
+        user: {
           createdAt: user.createdAt
             ? formatRelativeTime(user.createdAt)
             : user.createdAt,

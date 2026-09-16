@@ -1,0 +1,33 @@
+import { eq } from 'drizzle-orm'
+import { db } from '../../db/connection.js'
+import { schema } from '../../db/schema/index.js'
+import { formatRelativeTime } from '../../lib/utils.js'
+import { UserNotFoundError } from './errors.ts'
+
+export class GetUserProfileService {
+  async execute(userId: string) {
+    return await db.transaction(async (tx) => {
+      const user = await tx.query.users.findFirst({
+        where: eq(schema.users.id, userId),
+      })
+
+      if (!user) {
+        throw new UserNotFoundError()
+      }
+
+      return {
+        message: 'Perfil do usuário encontrado com sucesso.',
+        user: {
+          createdAt: user.createdAt
+            ? formatRelativeTime(user.createdAt)
+            : user.createdAt,
+          email: user.email ? user.email : null,
+          id: user.id,
+          image: user.avatarUrl ? user.avatarUrl : null,
+          name: user.name,
+          updatedAt: user.updatedAt ? formatRelativeTime(user.updatedAt) : null,
+        },
+      }
+    })
+  }
+}
