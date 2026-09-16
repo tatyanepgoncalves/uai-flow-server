@@ -9,3 +9,9 @@ export class UserNotFoundError extends Error {
     super('Usuário com o id fornecido não encontrado.')
   }
 }
+
+export class CredentialsInvalidError extends Error {
+  constructor() {
+    super('Credenciais de acesso inválidas. Tente novamente.')
+  }
+}
