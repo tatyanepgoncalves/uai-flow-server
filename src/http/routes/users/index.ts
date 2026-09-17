@@ -1,5 +1,6 @@
 import type { FastifyInstance } from 'fastify'
 import { createUserRoute } from './createUserRoute.ts'
+import { deleteUserByTokenRoute } from './deleteUserByTokenRoute.ts'
 import { getUserProfileRoute } from './getUserProfileRoute.ts'
 import { loginUserRoute } from './loginUserRoute.ts'
 import { logoutUserRoute } from './logoutUserRoute.ts'
@@ -15,4 +16,5 @@ export async function userRoutes(app: FastifyInstance) {
   app.register(getUserProfileRoute)
   app.register(updateUserRoute)
   app.register(logoutUserRoute)
+  app.register(deleteUserByTokenRoute)
 }
