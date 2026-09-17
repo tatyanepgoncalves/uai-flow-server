@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 export const loginUserSchema = {
-  tags: ['Autenticação'],
+  tags: ['Usuários'],
   summary: 'Autentica um usuário e retorna um token.',
   description: 'Autentica um usuário e retorna um token de acesso.',
   body: z.object({
