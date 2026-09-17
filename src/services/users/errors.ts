@@ -15,3 +15,9 @@ export class CredentialsInvalidError extends Error {
     super('Credenciais de acesso inválidas. Tente novamente.')
   }
 }
+
+export class UserAlreadyExistsError extends Error {
+  constructor() {
+    super('Usuário com email já cadastrado.')
+  }
+}
