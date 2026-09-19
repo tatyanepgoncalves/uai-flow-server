@@ -18,12 +18,12 @@ export class GetUserProfileService {
       return {
         message: 'Perfil do usuário encontrado com sucesso.',
         user: {
+          avatarUrl: user.avatarUrl ? user.avatarUrl : null,
           createdAt: user.createdAt
             ? formatRelativeTime(user.createdAt)
             : user.createdAt,
           email: user.email ? user.email : null,
           id: user.id,
-          image: user.avatarUrl ? user.avatarUrl : null,
           name: user.name,
           updatedAt: user.updatedAt ? formatRelativeTime(user.updatedAt) : null,
         },
