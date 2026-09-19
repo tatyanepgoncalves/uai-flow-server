@@ -1,5 +1,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import {
+  EmailAlreadyExistsError,
   UserAlreadyExistsError,
   UserNotFoundError,
 } from '../../../services/users/errors.ts'
@@ -27,13 +28,19 @@ export class UpdateUserController {
         return reply.status(404).send({ message: error.message })
       }
 
-      if (error instanceof UserAlreadyExistsError || error.code === '23505') {
+      if (
+        error instanceof UserAlreadyExistsError ||
+        error instanceof EmailAlreadyExistsError ||
+        error.code === '23505'
+      ) {
         return reply.status(409).send({
           message: 'Email ou telefone já cadastrado por outro usuário.',
         })
       }
 
-      return reply.status(500).send({ message: 'Erro ao atualizar usuário.' })
+      return reply
+        .status(500)
+        .send({ message: 'Erro interno ao atualizar usuário.' })
     }
   }
 }
