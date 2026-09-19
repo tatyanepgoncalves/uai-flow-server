@@ -4,6 +4,12 @@ export class UserAlreadyExistError extends Error {
   }
 }
 
+export class EmailAlreadyExistsError extends Error {
+  constructor() {
+    super('O e-mail informado já está em uso por outra conta.')
+  }
+}
+
 export class UserNotFoundError extends Error {
   constructor() {
     super('Usuário com o id fornecido não encontrado.')

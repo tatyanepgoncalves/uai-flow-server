@@ -1,6 +1,6 @@
 import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod'
 import { LogoutUserController } from '../../controllers/users/logoutUserController.ts'
-import { authMiddleware } from '../../middlewres/authMiddleware.ts'
+import { authMiddleware } from '../../middlewares/authMiddleware.ts'
 import { logoutUserSchema } from '../../schemas/users/logoutUserSchema.ts'
 
 export const logoutUserRoute: FastifyPluginCallbackZod = (app) => {

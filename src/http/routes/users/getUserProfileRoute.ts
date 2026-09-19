@@ -1,6 +1,6 @@
 import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod'
 import { GetUserProfileController } from '../../controllers/users/getUserProfileController.ts'
-import { authMiddleware } from '../../middlewres/authMiddleware.ts'
+import { authMiddleware } from '../../middlewares/authMiddleware.ts'
 import { getUserProfileSchema } from '../../schemas/users/getUserProfileSchema.ts'
 
 export const getUserProfileRoute: FastifyPluginCallbackZod = (app) => {

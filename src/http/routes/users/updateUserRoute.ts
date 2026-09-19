@@ -1,6 +1,6 @@
 import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod'
 import { UpdateUserController } from '../../controllers/users/updateUserController.ts'
-import { authMiddleware } from '../../middlewres/authMiddleware.ts'
+import { authMiddleware } from '../../middlewares/authMiddleware.ts'
 import { updateUserSchema } from '../../schemas/users/updateUserSchema.ts'
 
 export const updateUserRoute: FastifyPluginCallbackZod = (app) => {

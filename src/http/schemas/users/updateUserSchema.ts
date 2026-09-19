@@ -4,14 +4,10 @@ export const updateUserSchema = {
   tags: ['Usuários'],
   summary: 'Atualiza informações do usuário.',
   description: 'Atualiza as informações do usuário autenticado.',
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
+  security: [{ bearerAuth: [] }],
   body: z.object({
     email: z.string().email().optional(),
-    avatarUrl: z.string().optional(),
+    avatarUrl: z.string().url().nullable().optional(),
     name: z.string().min(3).optional(),
     password: z.string().min(8).optional(),
   }),
