@@ -5,6 +5,7 @@ import {
   authTokensRelations,
   chunksRelations,
   languagesRelations,
+  userCompetenciesRelations,
   userContextsRelations,
   userDailyChunksRelations,
   userLanguagesRelations,
@@ -12,6 +13,7 @@ import {
   userStatsRelations,
   usersRelations,
 } from './relations.ts'
+import { userCompetencies } from './user_competencies.ts'
 import { userContexts } from './userContexts.ts'
 import { userDailyChunks } from './userDailyChunks.ts'
 import { userLanguages } from './userLanguages.ts'
@@ -29,6 +31,7 @@ export const schema = {
   userSentences,
   userContexts,
   userStats,
+  userCompetencies,
 
   usersRelations,
   authTokensRelations,
@@ -39,4 +42,5 @@ export const schema = {
   userSentencesRelations,
   chunksRelations,
   userStatsRelations,
+  userCompetenciesRelations,
 }

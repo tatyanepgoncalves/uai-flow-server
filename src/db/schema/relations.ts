@@ -2,6 +2,7 @@ import { relations } from 'drizzle-orm'
 import { authTokens } from './authTokens.ts'
 import { chunks } from './chunks.ts'
 import { languages } from './languages.ts'
+import { userCompetencies } from './user_competencies.ts'
 import { userContexts } from './userContexts.ts'
 import { userDailyChunks } from './userDailyChunks.ts'
 import { userLanguages } from './userLanguages.ts'
@@ -33,6 +34,7 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   aiGeneratedChunks: many(chunks, { relationName: 'aiGeneratedForUser' }),
   // Relacionamento 1:N -> Usuário possui vários tokens de autenticação
   tokens: many(authTokens),
+  competencies: many(userCompetencies),
 }))
 
 export const userStatsRelations = relations(userStats, ({ one }) => ({
@@ -41,6 +43,16 @@ export const userStatsRelations = relations(userStats, ({ one }) => ({
     references: [users.id],
   }),
 }))
+
+export const userCompetenciesRelations = relations(
+  userCompetencies,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userCompetencies.userId],
+      references: [users.id],
+    }),
+  })
+)
 
 // Relacionamente de auth token
 export const authTokensRelations = relations(authTokens, ({ one }) => ({
