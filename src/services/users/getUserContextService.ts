@@ -8,7 +8,7 @@ import { UserNotFoundError } from './errors.ts'
 
 export class GetUserContextsService {
   async execute(userId: string) {
-    // 1. Busca dados base do usuário e contexto em paralelo
+    // Busca dados base do usuário e contexto em paralelo
     const [user, userContext] = await Promise.all([
       db.query.users.findFirst({
         where: eq(schema.users.id, userId),
@@ -22,7 +22,7 @@ export class GetUserContextsService {
       throw new UserNotFoundError()
     }
 
-    // 2. Definição de Intervalos de Data
+    // Definição de Intervalos de Data
     const now = new Date()
     const startOfToday = new Date(
       now.getFullYear(),
@@ -35,7 +35,7 @@ export class GetUserContextsService {
     const startOfWeek = new Date(startOfToday)
     startOfWeek.setDate(startOfToday.getDate() - distanceToMonday)
 
-    // 3. Consultas paralelas
+    // Consultas paralelas
     const [
       [todayChunksResult],
       [totalMasteredResult],
@@ -113,7 +113,7 @@ export class GetUserContextsService {
         ),
     ])
 
-    // 4. Tratamento dos dados brutos
+    // Tratamento dos dados brutos
     const rawAvgScore = Number(accuracyResult?.averageScore ?? 0)
     const recallAccuracyPercentage = Number(
       ((rawAvgScore / 10) * 100).toFixed(1)
@@ -142,7 +142,7 @@ export class GetUserContextsService {
       pronunciationDrillsCompleted
     )
 
-    // 5. Retorno estruturado conforme o Schema
+    // Retorno estruturado conforme o Schema
     return {
       message: 'Contexto do usuário encontrado com sucesso.',
       user: {
@@ -167,7 +167,7 @@ export class GetUserContextsService {
             listeningGoal.activeListeningGoalMinutes ?? 60,
           activeListeningMinutes: listeningGoal.activeListeningMinutes,
           dailyChunksCompletedToday,
-          dailyChunksGoal: user.dailyGoalChunks ?? 3,
+          dailyChunksGoal: userContext?.dailyGoalChunks ?? 3,
           pronunciationDrillsCompleted,
           pronunciationDrillsGoal:
             pronunciationGoal.pronunciationDrillsGoal ?? 10,
