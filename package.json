@@ -18,11 +18,6 @@
     "fix": "ultracite fix",
     "start": "node --experimental-strip-types --no-warnings src/server.ts"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "esbuild"
-    ]
-  },
   "dependencies": {
     "@fastify/cors": "^11.3.0",
     "@fastify/swagger": "^9.8.1",
@@ -45,5 +40,10 @@
     "tsx": "^4.23.13",
     "typescript": "^7.0.2",
     "ultracite": "7.11.1"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }
