@@ -12,6 +12,7 @@
     "check": "ultracite check",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "pnpm exec drizzle-kit migrate",
+    "db:migrate:direct": "node --experimental-strip-types src/db/migrate.ts",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
     "dev": "node --env-file=.env --experimental-strip-types --no-warnings --watch src/server.ts",
