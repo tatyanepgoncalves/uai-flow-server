@@ -6,6 +6,7 @@ import { getUserContextRoute } from './getUserContextRoute.ts'
 import { getUserProfileRoute } from './getUserProfileRoute.ts'
 import { loginUserRoute } from './loginUserRoute.ts'
 import { logoutUserRoute } from './logoutUserRoute.ts'
+import { getStatsOverviewRoute } from './profile/getStatsOverviewRoute.ts'
 import { updateUserContextRoute } from './updateUserContextRoute.ts'
 import { updateUserRoute } from './updateUserRoute.ts'
 
@@ -23,4 +24,7 @@ export async function userRoutes(app: FastifyInstance) {
   app.register(updateUserContextRoute)
   app.register(logoutUserRoute)
   app.register(deleteUserByTokenRoute)
+
+  // ROTAS DA PÁGINA DE PERFIL
+  app.register(getStatsOverviewRoute)
 }
