@@ -25,6 +25,7 @@ export class GetUserProfileService {
           email: user.email ? user.email : null,
           id: user.id,
           name: user.name,
+          slug: user.slug,
           updatedAt: user.updatedAt ? formatRelativeTime(user.updatedAt) : null,
         },
       }
