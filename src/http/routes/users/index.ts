@@ -6,6 +6,7 @@ import { getUserContextRoute } from './getUserContextRoute.ts'
 import { getUserProfileRoute } from './getUserProfileRoute.ts'
 import { loginUserRoute } from './loginUserRoute.ts'
 import { logoutUserRoute } from './logoutUserRoute.ts'
+import { updateUserContextRoute } from './updateUserContextRoute.ts'
 import { updateUserRoute } from './updateUserRoute.ts'
 
 // biome-ignore lint/suspicious/useAwait: it not necessary
@@ -19,6 +20,7 @@ export async function userRoutes(app: FastifyInstance) {
   app.register(getUserProfileRoute)
   app.register(getUserContextRoute)
   app.register(updateUserRoute)
+  app.register(updateUserContextRoute)
   app.register(logoutUserRoute)
   app.register(deleteUserByTokenRoute)
 }

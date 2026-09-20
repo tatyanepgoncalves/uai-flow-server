@@ -4,6 +4,13 @@ export class UserAlreadyExistError extends Error {
   }
 }
 
+export class UserContextNotFoundError extends Error {
+  constructor() {
+    super('Contexto do usuário não encontrado.')
+    this.name = 'UserContextNotFoundError'
+  }
+}
+
 export class EmailAlreadyExistsError extends Error {
   constructor() {
     super('O e-mail informado já está em uso por outra conta.')
