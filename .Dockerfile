@@ -22,4 +22,4 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # O comando definitivo: Aplica as tabelas ao banco e depois inicia a aplicação
-CMD ["sh", "-c", "pnpm run db:push && pnpm run start"]
+CMD ["sh", "-c", "pnpm run db:migrate && pnpm run start"]
