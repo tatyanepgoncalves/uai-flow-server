@@ -21,5 +21,5 @@ RUN pnpm install --frozen-lockfile
 # Copiar o código do projeto inteiro (incluindo a pasta de migrações)
 COPY . .
 
-# O comando definitivo: Aplica as tabelas ao banco e depois inicia a aplicação
-CMD ["sh", "-c", "pnpm run db:migrate && pnpm run start"]
+# Inicia a aplicação (migrações devem ser executadas separadamente, não no startup)
+CMD ["pnpm", "run", "start"]
