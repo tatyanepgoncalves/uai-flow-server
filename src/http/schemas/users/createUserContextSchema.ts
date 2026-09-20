@@ -9,6 +9,7 @@ export const createUserContextSchema = {
     'Endpoint para definir o nível CEFR, profissão, interesses, metas de aprendizado e dificuldades do usuário.',
   body: z.object({
     currentLevel: currentLevelEnum.default('A1'),
+    dailyGoalChunks: z.number().int().min(1).max(100).default(3),
     professionOrField: z.string().trim().nullable().optional(),
     interests: z.string().trim().nullable().optional(),
     learningGoals: z.string().trim().nullable().optional(),
@@ -21,6 +22,7 @@ export const createUserContextSchema = {
         id: z.string().uuid(),
         userId: z.string().uuid(),
         currentLevel: currentLevelEnum,
+        dailyGoalChunks: z.number(),
         professionOrField: z.string().nullable(),
         interests: z.string().nullable(),
         learningGoals: z.string().nullable(),

@@ -48,6 +48,7 @@ export class CreateUserContextService {
       .insert(schema.userContexts)
       .values({
         currentLevel: data.currentLevel ?? 'A1',
+        dailyGoalChunks: data.dailyGoalChunks ?? 3,
         difficultyNotes: data.difficultyNotes ?? null,
         interests: data.interests ?? null,
         learningGoals: data.learningGoals ?? null,
