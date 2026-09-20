@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { createUserRoute } from './createUserRoute.ts'
 import { deleteUserByTokenRoute } from './deleteUserByTokenRoute.ts'
+import { getUserContextRoute } from './getUserContextRoute.ts'
 import { getUserProfileRoute } from './getUserProfileRoute.ts'
 import { loginUserRoute } from './loginUserRoute.ts'
 import { logoutUserRoute } from './logoutUserRoute.ts'
@@ -14,6 +15,7 @@ export async function userRoutes(app: FastifyInstance) {
 
   // ROTAS COM AUTENTICAÇÃO NECESSÁRIA
   app.register(getUserProfileRoute)
+  app.register(getUserContextRoute)
   app.register(updateUserRoute)
   app.register(logoutUserRoute)
   app.register(deleteUserByTokenRoute)
