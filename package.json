@@ -16,7 +16,7 @@
     "db:studio": "drizzle-kit studio",
     "dev": "node --env-file=.env --experimental-strip-types --no-warnings --watch src/server.ts",
     "fix": "ultracite fix",
-    "start": "node --experimental-strip-types --no-warnings src/server.ts"
+    "start": "pnpm run db:migrate && node --experimental-strip-types --no-warnings src/server.ts"
   },
   "dependencies": {
     "@fastify/cors": "^11.3.0",
