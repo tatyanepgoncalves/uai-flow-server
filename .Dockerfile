@@ -22,5 +22,5 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 
-# Inicia a aplicação
-CMD ["pnpm", "run", "start"]
+# O comando definitivo: Aplica as tabelas ao banco e depois inicia a aplicação
+CMD ["sh", "-c", "npm run db:push && npm run start"]
