@@ -6,6 +6,7 @@ import { userContexts } from './userContexts.ts'
 import { userDailyChunks } from './userDailyChunks.ts'
 import { userLanguages } from './userLanguages.ts'
 import { userSentences } from './userSentences.ts'
+import { userStats } from './userStats.ts'
 import { users } from './users.ts'
 
 // Relacionamentos do Usuário
@@ -15,6 +16,13 @@ export const usersRelations = relations(users, ({ one, many }) => ({
     fields: [users.id],
     references: [userContexts.userId],
   }),
+
+  // Relacionamento 1:1 -> Usuário possui uma estatística própria de aprendizagem
+  stats: one(userStats, {
+    fields: [users.id],
+    references: [userStats.userId],
+  }),
+
   // Relacionamento 1:N -> Usuário possui vários idiomas configurados
   userLanguages: many(userLanguages),
   // Relacionamento 1:N -> Usuário possui histórico de chunks diários atribuídos
@@ -25,6 +33,13 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   aiGeneratedChunks: many(chunks, { relationName: 'aiGeneratedForUser' }),
   // Relacionamento 1:N -> Usuário possui vários tokens de autenticação
   tokens: many(authTokens),
+}))
+
+export const userStatsRelations = relations(userStats, ({ one }) => ({
+  user: one(users, {
+    fields: [userStats.userId],
+    references: [users.id],
+  }),
 }))
 
 // Relacionamente de auth token

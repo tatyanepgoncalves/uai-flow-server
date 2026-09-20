@@ -15,6 +15,13 @@
       "when": 1789867034611,
       "tag": "0001_tranquil_cerebro",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1789911017765,
+      "tag": "0002_reflective_gorgon",
+      "breakpoints": true
     }
   ]
 }

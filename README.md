@@ -12,7 +12,7 @@ A aplicação combina princípios de neurociência, *comprehensible input* e rep
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Runtime & Linguagem:** Node.js & TypeScript
 - **Framework Web:** Fastify (alta performance e baixo overhead)
@@ -25,10 +25,10 @@ A aplicação combina princípios de neurociência, *comprehensible input* e rep
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```text
-uaiflow-api/
+uaiflow-server/
 ├── docker/            
 ├── src/
 │   ├── @types/          # Definições de tipos globais do TypeScript
@@ -56,7 +56,7 @@ uaiflow-api/
 
 ---
 
-## ⚡ Como Executar o Projeto Localmente
+## Como Executar o Projeto Localmente
 
 ### Pré-requisitos
 
@@ -122,7 +122,7 @@ O servidor estará rodando em: `http://localhost:3333`
 
 ---
 
-## 🔌 Endpoints da API
+## Endpoints da API
 
 | Método | Rota | Descrição | Autenticação |
 | --- | --- | --- | --- |
@@ -137,7 +137,7 @@ O servidor estará rodando em: `http://localhost:3333`
 
 ---
 
-## 🤖 Fluxo de Avaliação por LLM
+## Fluxo de Avaliação por LLM
 
 Ao enviar uma frase através do endpoint `POST /sentences`, a API invoca o serviço de integração com a LLM passando o *chunk* ativo e o input do usuário. O modelo retorna um JSON estruturado com o seguinte schema:
 
@@ -152,14 +152,10 @@ Ao enviar uma frase através do endpoint `POST /sentences`, a API invoca o servi
 
 ---
 
-## 📜 Licença
+## Licença
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](https://www.google.com/search?q=LICENSE) para mais detalhes.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
 
 ---
 
 Developed with 🔺 by **Tatyane**
-
-```
-
-```
