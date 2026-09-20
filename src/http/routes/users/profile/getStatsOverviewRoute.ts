@@ -7,7 +7,7 @@ export const getStatsOverviewRoute: FastifyPluginCallbackZod = (app) => {
   const controller = new GetStatsOverviewController()
 
   app.get(
-    'users/me/stats/overview',
+    '/users/me/stats/overview',
     {
       preHandler: [authMiddleware],
       schema: getStatsOverviewSchema,
