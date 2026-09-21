@@ -10,6 +10,7 @@ import { createWeeklyGoalsRoute } from './profile/createWeeklyGoalsRoute.ts'
 import { getActivityHeatmapRoute } from './profile/getActivityHeatmapRoute.ts'
 import { getCompetenciesRoute } from './profile/getCompetenciesRoute.ts'
 import { getStatsOverviewRoute } from './profile/getStatsOverviewRoute.ts'
+import { updateWeeklyGoalsRoute } from './profile/updateWeeklyGoalsRoute.ts'
 import { updateUserContextRoute } from './updateUserContextRoute.ts'
 import { updateUserRoute } from './updateUserRoute.ts'
 
@@ -33,4 +34,5 @@ export async function userRoutes(app: FastifyInstance) {
   app.register(getCompetenciesRoute)
   app.register(getActivityHeatmapRoute)
   app.register(createWeeklyGoalsRoute)
+  app.register(updateWeeklyGoalsRoute)
 }

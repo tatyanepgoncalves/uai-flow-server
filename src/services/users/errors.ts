@@ -11,6 +11,13 @@ export class UserContextNotFoundError extends Error {
   }
 }
 
+export class UserWeeklyGoalsNotFoundError extends Error {
+  constructor() {
+    super('Metas semanais do usuário não encontradas.')
+    this.name = 'UserWeeklyGoalsNotFoundError'
+  }
+}
+
 export class EmailAlreadyExistsError extends Error {
   constructor() {
     super('O e-mail informado já está em uso por outra conta.')
