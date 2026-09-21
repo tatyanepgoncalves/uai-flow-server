@@ -2,13 +2,14 @@ import { relations } from 'drizzle-orm'
 import { authTokens } from './authTokens.ts'
 import { chunks } from './chunks.ts'
 import { languages } from './languages.ts'
-import { userCompetencies } from './user_competencies.ts'
+import { userCompetencies } from './userCompetencies.ts'
 import { userContexts } from './userContexts.ts'
 import { userDailyChunks } from './userDailyChunks.ts'
 import { userLanguages } from './userLanguages.ts'
 import { userSentences } from './userSentences.ts'
 import { userStats } from './userStats.ts'
 import { users } from './users.ts'
+import { userWeeklyGoals } from './userWeeklyGoals.ts'
 
 // Relacionamentos do Usuário
 export const usersRelations = relations(users, ({ one, many }) => ({
@@ -35,6 +36,7 @@ export const usersRelations = relations(users, ({ one, many }) => ({
   // Relacionamento 1:N -> Usuário possui vários tokens de autenticação
   tokens: many(authTokens),
   competencies: many(userCompetencies),
+  weeklyGoals: many(userWeeklyGoals),
 }))
 
 export const userStatsRelations = relations(userStats, ({ one }) => ({
@@ -49,6 +51,16 @@ export const userCompetenciesRelations = relations(
   ({ one }) => ({
     user: one(users, {
       fields: [userCompetencies.userId],
+      references: [users.id],
+    }),
+  })
+)
+
+export const userWeeklyGoalsRelations = relations(
+  userWeeklyGoals,
+  ({ one }) => ({
+    user: one(users, {
+      fields: [userWeeklyGoals.userId],
       references: [users.id],
     }),
   })

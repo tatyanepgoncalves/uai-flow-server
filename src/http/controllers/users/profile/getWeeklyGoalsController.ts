@@ -1,19 +1,14 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { UserNotFoundError } from '../../../../services/users/errors.ts'
-import { GetActivityHeatmapService } from '../../../../services/users/profile/getActivityHeatmapService.ts'
-import type { GetActivityHeatmapSchema } from '../../../schemas/users/profile/getHeatmapSchema.ts'
+import { GetWeeklyGoalsService } from '../../../../services/users/profile/getWeeklyGoalsService.ts'
 
-export class GetActivityHeatmapController {
-  async handle(
-    request: FastifyRequest<{ Querystring: GetActivityHeatmapSchema }>,
-    reply: FastifyReply
-  ) {
+export class GetWeeklyGoalsController {
+  async handle(request: FastifyRequest, reply: FastifyReply) {
     try {
-      const { days } = request.query
       const userId = request.user?.id
-      const service = new GetActivityHeatmapService()
-      const result = await service.execute(days, userId)
+      const service = new GetWeeklyGoalsService()
 
+      const result = await service.execute(userId)
       return reply.status(200).send(result)
     } catch (error) {
       if (error instanceof UserNotFoundError) {
