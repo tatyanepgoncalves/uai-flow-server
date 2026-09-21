@@ -8,6 +8,7 @@ import {
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod'
+import { languageRoutes } from './http/routes/languages/index.ts'
 import { userRoutes } from './http/routes/users/index.ts'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -52,3 +53,4 @@ app.get(
 )
 
 app.register(userRoutes)
+app.register(languageRoutes)
