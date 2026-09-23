@@ -1,5 +1,5 @@
 {
-  "id": "6a970271-1b41-4b5c-9e08-96274075558e",
+  "id": "14468ae1-16bb-4b2d-b03f-f519bc1eb3ec",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -205,14 +205,14 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "code": {
-          "name": "code",
+        "name": {
+          "name": "name",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "name": {
-          "name": "name",
+        "code": {
+          "name": "code",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -266,6 +266,149 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.user_chunk_progress": {
+      "name": "user_chunk_progress",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chunk_id": {
+          "name": "chunk_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ease_factor": {
+          "name": "ease_factor",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 2.5
+        },
+        "interval_days": {
+          "name": "interval_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "repetitions": {
+          "name": "repetitions",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "next_review_at": {
+          "name": "next_review_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "last_reviewed_at": {
+          "name": "last_reviewed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "is_completed_today": {
+          "name": "is_completed_today",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {
+        "user_chunk_progress_user_chunk_unique": {
+          "name": "user_chunk_progress_user_chunk_unique",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "chunk_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": true,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "user_chunk_progress_next_review_idx": {
+          "name": "user_chunk_progress_next_review_idx",
+          "columns": [
+            {
+              "expression": "user_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "next_review_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "user_chunk_progress_user_id_users_id_fk": {
+          "name": "user_chunk_progress_user_id_users_id_fk",
+          "tableFrom": "user_chunk_progress",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "user_chunk_progress_chunk_id_chunks_id_fk": {
+          "name": "user_chunk_progress_chunk_id_chunks_id_fk",
+          "tableFrom": "user_chunk_progress",
+          "tableTo": "chunks",
+          "columnsFrom": [
+            "chunk_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.user_contexts": {
       "name": "user_contexts",
       "schema": "",
@@ -283,6 +426,19 @@
           "primaryKey": false,
           "notNull": true
         },
+        "language_id": {
+          "name": "language_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_active": {
+          "name": "is_active",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": true
+        },
         "current_level": {
           "name": "current_level",
           "type": "current_level_cefr",
@@ -291,17 +447,18 @@
           "notNull": true,
           "default": "'A1'"
         },
-        "profession_or_field": {
-          "name": "profession_or_field",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "interests": {
           "name": "interests",
           "type": "text",
           "primaryKey": false,
           "notNull": false
+        },
+        "daily_goal_chunks": {
+          "name": "daily_goal_chunks",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 3
         },
         "learning_goals": {
           "name": "learning_goals",
@@ -330,177 +487,9 @@
           "default": "now()"
         }
       },
-      "indexes": {},
-      "foreignKeys": {
-        "user_contexts_user_id_users_id_fk": {
-          "name": "user_contexts_user_id_users_id_fk",
-          "tableFrom": "user_contexts",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user_daily_chunks": {
-      "name": "user_daily_chunks",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "chunk_id": {
-          "name": "chunk_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "assigned_date": {
-          "name": "assigned_date",
-          "type": "timestamp with time zone",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "is_completed": {
-          "name": "is_completed",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": false
-        },
-        "reason_for_selection": {
-          "name": "reason_for_selection",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
       "indexes": {
-        "user_daily_chunks_user_date_idx": {
-          "name": "user_daily_chunks_user_date_idx",
-          "columns": [
-            {
-              "expression": "user_id",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            },
-            {
-              "expression": "assigned_date",
-              "isExpression": false,
-              "asc": true,
-              "nulls": "last"
-            }
-          ],
-          "isUnique": false,
-          "concurrently": false,
-          "method": "btree",
-          "with": {}
-        }
-      },
-      "foreignKeys": {
-        "user_daily_chunks_user_id_users_id_fk": {
-          "name": "user_daily_chunks_user_id_users_id_fk",
-          "tableFrom": "user_daily_chunks",
-          "tableTo": "users",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "user_daily_chunks_chunk_id_chunks_id_fk": {
-          "name": "user_daily_chunks_chunk_id_chunks_id_fk",
-          "tableFrom": "user_daily_chunks",
-          "tableTo": "chunks",
-          "columnsFrom": [
-            "chunk_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "user_daily_chunks_user_id_unique": {
-          "name": "user_daily_chunks_user_id_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "user_id"
-          ]
-        },
-        "user_daily_chunks_chunk_id_unique": {
-          "name": "user_daily_chunks_chunk_id_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "chunk_id"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.user_languages": {
-      "name": "user_languages",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "user_id": {
-          "name": "user_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "language_id": {
-          "name": "language_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "isActive": {
-          "name": "isActive",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": false,
-          "default": true
-        }
-      },
-      "indexes": {
-        "user_language_unique": {
-          "name": "user_language_unique",
+        "user_contexts_user_language_unique": {
+          "name": "user_contexts_user_language_unique",
           "columns": [
             {
               "expression": "user_id",
@@ -522,9 +511,9 @@
         }
       },
       "foreignKeys": {
-        "user_languages_user_id_users_id_fk": {
-          "name": "user_languages_user_id_users_id_fk",
-          "tableFrom": "user_languages",
+        "user_contexts_user_id_users_id_fk": {
+          "name": "user_contexts_user_id_users_id_fk",
+          "tableFrom": "user_contexts",
           "tableTo": "users",
           "columnsFrom": [
             "user_id"
@@ -532,12 +521,12 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "user_languages_language_id_languages_id_fk": {
-          "name": "user_languages_language_id_languages_id_fk",
-          "tableFrom": "user_languages",
+        "user_contexts_language_id_languages_id_fk": {
+          "name": "user_contexts_language_id_languages_id_fk",
+          "tableFrom": "user_contexts",
           "tableTo": "languages",
           "columnsFrom": [
             "language_id"
@@ -545,7 +534,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
@@ -590,12 +579,17 @@
           "primaryKey": false,
           "notNull": false
         },
-        "daily_goal_chunks": {
-          "name": "daily_goal_chunks",
-          "type": "integer",
+        "profission_area": {
+          "name": "profission_area",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false,
-          "default": 3
+          "notNull": true
+        },
+        "slug": {
+          "name": "slug",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
         },
         "created_at": {
           "name": "created_at",
@@ -603,12 +597,6 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
-        },
-        "slug": {
-          "name": "slug",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
         },
         "updated_at": {
           "name": "updated_at",
@@ -661,19 +649,19 @@
           "name": "user_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "chunk_id": {
           "name": "chunk_id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "user_input": {
           "name": "user_input",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "ai_feedback": {
           "name": "ai_feedback",
@@ -713,7 +701,7 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         },
         "user_sentences_chunk_id_chunks_id_fk": {
@@ -726,12 +714,95 @@
           "columnsTo": [
             "id"
           ],
-          "onDelete": "no action",
+          "onDelete": "cascade",
           "onUpdate": "no action"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.user_stats": {
+      "name": "user_stats",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "chunks_mastered": {
+          "name": "chunks_mastered",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "current_streak_days": {
+          "name": "current_streak_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "streak_record_days": {
+          "name": "streak_record_days",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "total_immersion_minutes": {
+          "name": "total_immersion_minutes",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 0
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "user_stats_user_id_users_id_fk": {
+          "name": "user_stats_user_id_users_id_fk",
+          "tableFrom": "user_stats",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "user_stats_user_id_unique": {
+          "name": "user_stats_user_id_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

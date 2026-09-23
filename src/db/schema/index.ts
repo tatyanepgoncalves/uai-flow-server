@@ -5,44 +5,36 @@ import {
   authTokensRelations,
   chunksRelations,
   languagesRelations,
-  userCompetenciesRelations,
+  userChunkProgressRelations,
   userContextsRelations,
-  userDailyChunksRelations,
-  userLanguagesRelations,
   userSentencesRelations,
-  userStatsRelations,
   usersRelations,
 } from './relations.ts'
-import { userCompetencies } from './userCompetencies.ts'
+import { userChunkProgress } from './userChunkProgress.ts'
 import { userContexts } from './userContexts.ts'
-import { userDailyChunks } from './userDailyChunks.ts'
-import { userLanguages } from './userLanguages.ts'
+
 import { userSentences } from './userSentences.ts'
 import { userStats } from './userStats.ts'
 import { users } from './users.ts'
-import { userWeeklyGoals } from './userWeeklyGoals.ts'
 
 export const schema = {
   users,
   authTokens,
   chunks,
   languages,
-  userDailyChunks,
-  userLanguages,
+
   userSentences,
   userContexts,
   userStats,
-  userCompetencies,
-  userWeeklyGoals,
+
+  userChunkProgress,
 
   usersRelations,
   authTokensRelations,
-  userContextsRelations,
+
   languagesRelations,
-  userLanguagesRelations,
-  userDailyChunksRelations,
-  userSentencesRelations,
+  userContextsRelations,
   chunksRelations,
-  userStatsRelations,
-  userCompetenciesRelations,
+  userChunkProgressRelations,
+  userSentencesRelations,
 }

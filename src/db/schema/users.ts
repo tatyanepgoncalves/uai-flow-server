@@ -6,11 +6,12 @@ export const users = pgTable('users', {
   email: text('email').unique().notNull(),
   password: text('password').notNull(),
   avatarUrl: text('avatar_url'),
+  profissionArea: text('profission_area').notNull(),
+  slug: text('slug').unique().notNull(),
 
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
-  slug: text('slug').unique().notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }),
   deletedAt: timestamp('deleted_at', { withTimezone: true }),
 })

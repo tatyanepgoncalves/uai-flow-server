@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { db } from '../../db/connection.ts'
 import { schema } from '../../db/schema/index.ts'
 import type { CreateLanguageSchema } from '../../http/schemas/languages/create-language-schema.ts'
@@ -33,19 +33,19 @@ export class CreateLanguageService {
         language = newLanguage
       }
 
-      const existingRelation = await tx.query.userLanguages.findFirst({
-        where: and(
-          eq(schema.userLanguages.userId, userId),
-          eq(schema.userLanguages.languageId, language.id)
-        ),
-      })
+      // const existingRelation = await tx.query.userLanguages.findFirst({
+      //   where: and(
+      //     // eq(schema.userLanguages.userId, userId),
+      //     eq(schema.userLanguages.languageId, language.id)
+      //   ),
+      // })
 
-      if (!existingRelation) {
-        await tx.insert(schema.userLanguages).values({
-          languageId: language.id,
-          userId,
-        })
-      }
+      // if (!existingRelation) {
+      //   await tx.insert(schema.userLanguages).values({
+      //     languageId: language.id,
+      //     // userId,
+      //   })
+      // }
 
       return {
         language: {
