@@ -4,13 +4,6 @@ export class UserAlreadyExistError extends Error {
   }
 }
 
-export class UserContextNotFoundError extends Error {
-  constructor() {
-    super('Contexto do usuário não encontrado.')
-    this.name = 'UserContextNotFoundError'
-  }
-}
-
 export class UserWeeklyGoalsNotFoundError extends Error {
   constructor() {
     super('Metas semanais do usuário não encontradas.')

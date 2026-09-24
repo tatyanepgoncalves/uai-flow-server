@@ -1,19 +1,15 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { CreateUserContextService } from '../../../services/users/createUserContextService.ts'
+import { CreateUserContextService } from '../../../services/userContext/createUserContextService.ts'
 import { UserNotFoundError } from '../../../services/users/errors.ts'
-import type { CreateUserContextInput } from '../../schemas/users/createUserContextSchema.ts'
+import type { CreateUserContextBody } from '../../schemas/userContext/createUserContextSchema.ts'
 
 export class CreateUserContextController {
   async handle(
-    request: FastifyRequest<{ Body: CreateUserContextInput }>,
+    request: FastifyRequest<{ Body: CreateUserContextBody }>,
     reply: FastifyReply
   ) {
     try {
       const userId = request.user?.id
-
-      if (!userId) {
-        return reply.status(401).send({ message: 'Não autorizado' })
-      }
 
       const service = new CreateUserContextService()
       const result = await service.execute(userId, request.body)
