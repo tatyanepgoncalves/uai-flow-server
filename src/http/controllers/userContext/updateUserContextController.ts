@@ -1,14 +1,12 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import {
-  UserContextNotFoundError,
-  UserNotFoundError,
-} from '../../../services/users/errors.ts'
-import { UpdateUserContextService } from '../../../services/users/updateUserContextService.ts'
-import type { UpdateUserContextInput } from '../../schemas/users/updateUserContextSchema.ts'
+import { UserContextNotFoundError } from '../../../services/userContext/error.ts'
+import { UpdateUserContextService } from '../../../services/userContext/updateUserContextService.ts'
+import { UserNotFoundError } from '../../../services/users/errors.ts'
+import type { UpdateUserContextBody } from '../../schemas/userContext/updateUserContextSchema.ts'
 
 export class UpdateUserContextController {
   async handle(
-    request: FastifyRequest<{ Body: UpdateUserContextInput }>,
+    request: FastifyRequest<{ Body: UpdateUserContextBody }>,
     reply: FastifyReply
   ) {
     try {

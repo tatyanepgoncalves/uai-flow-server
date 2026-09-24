@@ -1,11 +1,12 @@
 import { eq } from 'drizzle-orm'
 import { db } from '../../db/connection.ts'
 import { schema } from '../../db/schema/index.ts'
-import type { UpdateUserContextInput } from '../../http/schemas/users/updateUserContextSchema.ts'
-import { UserContextNotFoundError, UserNotFoundError } from './errors.ts'
+import type { UpdateUserContextBody } from '../../http/schemas/userContext/updateUserContextSchema.ts'
+import { UserNotFoundError } from '../users/errors.ts'
+import { UserContextNotFoundError } from './error.ts'
 
 export class UpdateUserContextService {
-  async execute(userId: string, data: UpdateUserContextInput) {
+  async execute(userId: string, data: UpdateUserContextBody) {
     // Verifica se o usuário existe
     const user = await db.query.users.findFirst({
       where: eq(schema.users.id, userId),
@@ -39,14 +40,14 @@ export class UpdateUserContextService {
           data.interests === undefined
             ? existingContext.interests
             : data.interests,
+        isActive:
+          data.isActive === undefined
+            ? existingContext.isActive
+            : data.isActive,
         learningGoals:
           data.learningGoals === undefined
             ? existingContext.learningGoals
             : data.learningGoals,
-        professionOrField:
-          data.professionOrField === undefined
-            ? existingContext.professionOrField
-            : data.professionOrField,
         updatedAt: new Date(),
       })
       .where(eq(schema.userContexts.id, existingContext.id))
@@ -54,7 +55,7 @@ export class UpdateUserContextService {
 
     return {
       context: updatedContext,
-      message: 'Contexto do usuário atualizado com sucesso.',
+      message: `Contexto do ${data.user?.name} para o idioma ${data.language.name} atualizado com sucesso.`,
     }
   }
 }
