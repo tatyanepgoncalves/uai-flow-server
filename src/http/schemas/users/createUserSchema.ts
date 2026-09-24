@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const createUserSchema = {
   tags: ['Usuários'],
-  summary: 'Cadastra um novo usuário com personalização',
+  summary: 'Cadastra um novo usuário',
   body: z.object({
     name: z.string().min(2),
     email: z.string().email(),

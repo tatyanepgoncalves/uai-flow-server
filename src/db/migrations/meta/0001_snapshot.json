@@ -1,6 +1,6 @@
 {
-  "id": "8edb1206-b365-482d-99b0-5484282bb6d3",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "4c63290f-61e5-47e8-8f46-d2c3e7c70261",
+  "prevId": "8edb1206-b365-482d-99b0-5484282bb6d3",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -579,8 +579,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "profission_area": {
-          "name": "profission_area",
+        "profession_area": {
+          "name": "profession_area",
           "type": "text",
           "primaryKey": false,
           "notNull": true

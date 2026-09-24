@@ -1,0 +1,1 @@
+ALTER TABLE "users" RENAME COLUMN "profission_area" TO "profession_area";

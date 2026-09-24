@@ -30,7 +30,7 @@ export class CreateUserService {
           email: data.email,
           name: data.name,
           password: passwordHash,
-          profissionArea: data.professionArea,
+          professionArea: data.professionArea,
           slug,
         })
         .returning()
@@ -61,7 +61,7 @@ export class CreateUserService {
           email: user.email,
           id: user.id,
           name: user.name,
-          profissionArea: user.profissionArea,
+          professionArea: user.professionArea,
           slug: user.slug,
         },
       }
