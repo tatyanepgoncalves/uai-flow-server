@@ -4,7 +4,7 @@ import { redis } from '../../config/ioredis.ts'
 import { db } from '../../db/connection.ts'
 import { schema } from '../../db/schema/index.ts'
 import type { UpdateUserBodySchema } from '../../http/schemas/users/updateUserSchema.ts'
-import { formatRelativeTime } from '../../lib/utils.ts'
+import { formatRelativeTime, generateSlug } from '../../lib/utils.ts'
 import { EmailAlreadyExistsError, UserNotFoundError } from './errors.ts'
 
 export class UpdateUserService {
@@ -39,6 +39,7 @@ export class UpdateUserService {
 
     if (data.name !== undefined) {
       updateData.name = data.name
+      updateData.slug = generateSlug(data.name)
     }
 
     if (data.email !== undefined) {

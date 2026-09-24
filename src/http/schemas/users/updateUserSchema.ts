@@ -15,10 +15,10 @@ export const updateUserSchema = {
     200: z.object({
       message: z.string().optional(),
       user: z.object({
-        email: z.string(),
         id: z.string().uuid(),
-        avatarUrl: z.string().nullable(),
         name: z.string(),
+        email: z.string(),
+        avatarUrl: z.string().nullable(),
         updatedAt: z.string().nullable(),
       }),
     }),
