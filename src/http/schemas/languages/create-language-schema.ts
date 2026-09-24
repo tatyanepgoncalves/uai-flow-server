@@ -4,7 +4,7 @@ export const createLanguageSchema = {
   tags: ['Idiomas'],
   summary: 'Adiciona um novo idioma ao perfil do usuário. ',
   description: 'Endpoint para adicionar um novo idioma ao perfil do usuário.',
-  security: [{ BearerAuth: [] }],
+  security: [{ bearerAuth: [] }],
   body: z.object({
     name: z.string().min(2).max(100),
     code: z.string().min(2).max(10),

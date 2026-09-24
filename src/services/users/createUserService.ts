@@ -26,20 +26,14 @@ export class CreateUserService {
       const [user] = await tx
         .insert(schema.users)
         .values({
+          createdAt: new Date(),
           email: data.email,
           name: data.name,
           password: passwordHash,
+          profissionArea: data.professionArea,
           slug,
         })
         .returning()
-
-      // Criar contexto do usuário
-      await tx.insert(schema.userContexts).values({
-        currentLevel: data.cefr,
-        learningGoals: data.scenarios?.join(', '),
-        professionOrField: data.profession,
-        userId: user.id,
-      })
 
       const token = jwt.sign(
         {
@@ -67,6 +61,7 @@ export class CreateUserService {
           email: user.email,
           id: user.id,
           name: user.name,
+          profissionArea: user.profissionArea,
           slug: user.slug,
         },
       }
