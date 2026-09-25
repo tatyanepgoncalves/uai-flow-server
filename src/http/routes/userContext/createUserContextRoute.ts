@@ -8,7 +8,7 @@ export const createUserContextRoute: FastifyPluginCallbackZod = (app) => {
   const controller = new CreateUserContextController()
 
   app.post(
-    '/users/context',
+    '/context',
     {
       preHandler: [authMiddleware, authorizeSelf],
       schema: createUserContextSchema,
