@@ -12,7 +12,6 @@ export class DeleteLanguageService {
           slug ? eq(schema.languages.slug, slug) : undefined,
           id ? eq(schema.languages.id, id) : undefined
         ),
-        isNull(schema.languages.deletedAt)
       ),
     })
 
