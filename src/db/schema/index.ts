@@ -8,6 +8,7 @@ import {
   userChunkProgressRelations,
   userContextsRelations,
   userSentencesRelations,
+  userStatsRelations,
   usersRelations,
 } from './relations.ts'
 import { userChunkProgress } from './userChunkProgress.ts'
@@ -37,4 +38,5 @@ export const schema = {
   chunksRelations,
   userChunkProgressRelations,
   userSentencesRelations,
+  userStatsRelations,
 }

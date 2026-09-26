@@ -1,12 +1,21 @@
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { db } from '../../db/connection.ts'
 import { schema } from '../../db/schema/index.ts'
-import type { UpdateUserContextBody } from '../../http/schemas/userContext/updateUserContextSchema.ts'
+import type {
+  UpdateUserContextBody,
+  UpdateUserContextQuery,
+} from '../../http/schemas/userContext/updateUserContextSchema.ts'
+import { formatField, formatRelativeTime } from '../../lib/utils.ts'
+import { LanguageNotFoundError } from '../languages/error.ts'
 import { UserNotFoundError } from '../users/errors.ts'
 import { UserContextNotFoundError } from './error.ts'
 
 export class UpdateUserContextService {
-  async execute(userId: string, data: UpdateUserContextBody) {
+  async execute(
+    userId: string,
+    data: UpdateUserContextBody,
+    { slug, id }: UpdateUserContextQuery
+  ) {
     // Verifica se o usuário existe
     const user = await db.query.users.findFirst({
       where: eq(schema.users.id, userId),
@@ -16,9 +25,24 @@ export class UpdateUserContextService {
       throw new UserNotFoundError()
     }
 
+    // Busca idioma
+    const language = await db.query.languages.findFirst({
+      where: and(
+        id ? eq(schema.languages.id, id) : undefined,
+        slug ? eq(schema.languages.slug, slug) : undefined
+      ),
+    })
+
+    if (!language) {
+      throw new LanguageNotFoundError()
+    }
+
     // Busca o contexto existente
     const existingContext = await db.query.userContexts.findFirst({
-      where: eq(schema.userContexts.userId, userId),
+      where: and(
+        eq(schema.userContexts.userId, userId),
+        eq(schema.userContexts.languageId, language.id)
+      ),
     })
 
     if (!existingContext) {
@@ -35,11 +59,11 @@ export class UpdateUserContextService {
         difficultyNotes:
           data.difficultyNotes === undefined
             ? existingContext.difficultyNotes
-            : data.difficultyNotes,
+            : formatField(data.difficultyNotes),
         interests:
           data.interests === undefined
             ? existingContext.interests
-            : data.interests,
+            : formatField(data.interests),
         isActive:
           data.isActive === undefined
             ? existingContext.isActive
@@ -47,15 +71,36 @@ export class UpdateUserContextService {
         learningGoals:
           data.learningGoals === undefined
             ? existingContext.learningGoals
-            : data.learningGoals,
+            : formatField(data.learningGoals),
         updatedAt: new Date(),
       })
       .where(eq(schema.userContexts.id, existingContext.id))
       .returning()
 
+    const formattedResponse = {
+      currentLevel: updatedContext.currentLevel,
+      dailyGoalChunks: updatedContext.dailyGoalChunks,
+      difficultyNotes: updatedContext.difficultyNotes,
+      id: updatedContext.id,
+      interests: updatedContext.interests,
+      isActive: updatedContext.isActive ?? true,
+      language: {
+        id: language.id,
+        name: language.name,
+      },
+      learningGoals: updatedContext.learningGoals,
+      updatedAt: updatedContext.updatedAt
+        ? formatRelativeTime(updatedContext.updatedAt)
+        : updatedContext.updatedAt,
+      user: {
+        id: user.id,
+        name: user.name,
+      },
+    }
+
     return {
-      context: updatedContext,
-      message: `Contexto do ${data.user?.name} para o idioma ${data.language.name} atualizado com sucesso.`,
+      context: formattedResponse,
+      message: `Contexto do ${user.name} para o idioma ${language.name} atualizado com sucesso.`,
     }
   }
 }
