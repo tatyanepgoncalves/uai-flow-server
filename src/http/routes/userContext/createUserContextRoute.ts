@@ -1,7 +1,6 @@
 import type { FastifyPluginCallbackZod } from 'fastify-type-provider-zod'
 import { CreateUserContextController } from '../../controllers/userContext/createUserContextController.ts'
 import { authMiddleware } from '../../middlewares/authMiddleware.ts'
-import { authorizeSelf } from '../../middlewares/authorizeSelf.ts'
 import { createUserContextSchema } from '../../schemas/userContext/createUserContextSchema.ts'
 
 export const createUserContextRoute: FastifyPluginCallbackZod = (app) => {
@@ -10,7 +9,7 @@ export const createUserContextRoute: FastifyPluginCallbackZod = (app) => {
   app.post(
     '/context',
     {
-      preHandler: [authMiddleware, authorizeSelf],
+      preHandler: [authMiddleware],
       schema: createUserContextSchema,
     },
     async (request, reply) => controller.handle(request, reply)

@@ -10,6 +10,7 @@ import {
 } from 'fastify-type-provider-zod'
 import { languageRoutes } from './http/routes/languages/index.ts'
 import { userRoutes } from './http/routes/users/index.ts'
+import { userContextRoutes } from './http/routes/userContext/index.ts'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -54,3 +55,4 @@ app.get(
 
 app.register(userRoutes)
 app.register(languageRoutes)
+app.register(userContextRoutes)

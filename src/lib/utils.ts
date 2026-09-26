@@ -107,3 +107,12 @@ export function generateSlug(text: string): string {
     .replace(/\s+/g, '-') // Substitui espaços por hífen
     .replace(/-+/g, '-') // Remove hífens duplicados
 }
+
+export function formatField(value: string | string[] | null | undefined): string | null {
+  if (!value) return null
+  if (Array.isArray(value)) {
+    return value.join('\n') // Transforma o array em tópicos separados por quebra de linha
+    // ou JSON.stringify(value) se preferir guardar como JSON string
+  }
+  return value
+}
